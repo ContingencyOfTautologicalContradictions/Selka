@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.28.0)
+project(Selka)
+file(GLOB_RECURSE SELKA_SOURCES ../Source/*.cpp)
+add_executable(Selka ${SELKA_SOURCES})
+target_compile_options(Selka PRIVATE -O3 -fno-rtti -fno-exceptions -fomit-frame-pointer)
+target_compile_features(Selka PRIVATE cxx_std_23)
