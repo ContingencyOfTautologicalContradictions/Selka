@@ -9,8 +9,8 @@ namespace Selka::Validator
     auto Validate(std::string&& input, std::string&& outdir, Shader shader) ->
     void
     {
-        const std::filesystem::directory_iterator files(std::filesystem::path(input), std::filesystem
-        ::directory_options::follow_directory_symlink);
+        const std::filesystem::directory_iterator files(std::filesystem::path(
+        input), std::filesystem::directory_options::follow_directory_symlink);
         Scheduler scheduler(std::forward<std::string>(outdir), shader);
         for(const std::filesystem::directory_entry& a : files)
         {
