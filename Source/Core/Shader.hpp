@@ -11,5 +11,7 @@ namespace Selka
         HLSL
     };
 
-    [[nodiscard]] auto ShaderLanguage(const std::string&) noexcept -> Shader;
+    [[nodiscard]] auto ShaderLanguage(const std::string&) -> Shader;
+
+    [[nodiscard]] auto ShaderLanguage(Shader) -> std::string;
 }
