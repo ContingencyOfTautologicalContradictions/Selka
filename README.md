@@ -18,6 +18,8 @@ As the third argument, you have to pass the shading language you want to produce
 
 An optional fourth argument can be given in the form of a natural number, symbolizing the number of threads that Selka will use to process in parallel your provided files. By default, this value is settle to the number of CPU's physical threads.
 
+Finally, at your C++ shader files, include ``Include/Selka.hpp``.
+
 ## Progress
 
 | Version      | Status      |
