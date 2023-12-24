@@ -3,5 +3,5 @@
 
 namespace Selka::Executor
 {
-    void Process(std::string&);
+    auto Process(std::string&) -> void;
 }

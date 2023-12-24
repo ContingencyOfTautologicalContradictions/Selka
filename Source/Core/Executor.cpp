@@ -9,7 +9,8 @@ namespace Selka::Executor
         const nlohmann::json data = nlohmann::json::parse(content);
         if(not data.is_object())
         {
-            std::cerr << "The following JSON content ain't a valid JSON object:\n\n" << content;
+            std::cerr << "The following JSON content ain't a valid JSON object"
+            ":\n\n" << content;
             std::abort();
         }
         content.clear();
