@@ -16,7 +16,7 @@ clang++ File1.cc -nostdlib -std=c++23 -Xclang -ast-dump=json -fno-color-diagnost
 clang++ File2.cc -nostdlib -std=c++23 -Xclang -ast-dump=json -fno-color-diagnostics -fsyntax-only -I ../Include > File2.selka
 ```
 
-Later, execute Selka binary by giving it the path of the directory that will be used as an input to scan for valid clang AST sources in a JSON format, as the former argument. For it to be a valid Selka file, must terminate with the file extension ``.selka``.
+Later, execute the Selka binary by giving it the path of the directory that will be used as an input to scan for valid Clang AST sources in a JSON format, as the former argument. For it to be a valid Selka file, must terminate with the file extension ``.selka``.
 
 Then, pass the output directory as the second argument. This output directory will be used to place the produced shader file.
 
