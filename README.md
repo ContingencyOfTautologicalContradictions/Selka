@@ -5,7 +5,16 @@ A transpiler from modern C++ to the different programming languages: HLSL, GLSL,
 
 ## Usage
 
-To use Selka, pass to it the output directory as the first argument. This directory will be used to place the produced shader file. As the second argument, you have to pass the shading language you want to produce. The following values are: hlsl, glsl, msl and wgsl.
+To use Selka, first pass to it the path of the directory that will be used as an input to scan for valid clang AST sources in a JSON format, as the former argument.
+
+Then, pass the output directory as the second argument. This output directory will be used to place the produced shader file.
+
+As the third argument, you have to pass the shading language you want to produce, which must be described with one of the following values: 
+
+- ``hlsl``
+- ``glsl``
+- ``msl``
+- ``wgsl``
 
 
 ## Progress
