@@ -48,7 +48,8 @@ namespace Selka
     {
         m_tasks.resize(std::thread::hardware_concurrency());
         for(Task& task : m_tasks)
-            task.Executor() = std::thread(Execute, std::ref(*this), std::ref(task));
+            task.Executor() = std::thread(Execute, std::ref(*this), std::ref(
+        task));
     }
 
     Scheduler::Scheduler(std::string&& output, Shader shader, std::size_t
@@ -56,7 +57,8 @@ namespace Selka
     {
         m_tasks.resize(executors);
         for(Task& task : m_tasks)
-            task.Executor() = std::thread(Execute, std::ref(*this), std::ref(task));
+            task.Executor() = std::thread(Execute, std::ref(*this), std::ref(
+        task));
     }
 
     auto Scheduler::Exchange(std::string&& input, std::string&& source) -> void
@@ -79,12 +81,14 @@ namespace Selka
                             task.state = State::Untouched;
                             std::ofstream(m_output + task.input).write(source.
                             c_str(), source.size());
-                            task.input = std::filesystem::path(std::forward<std::string>(input)).stem();
+                            task.input = std::filesystem::path(std::forward<std
+                            ::string>(input)).stem();
                             task.input += ShaderLanguage(m_shader);
                         break;
                         case Unassigned:
                             all_occupied = false;
-                            task.input = std::filesystem::path(std::forward<std::string>(input)).stem();
+                            task.input = std::filesystem::path(std::forward<std
+                            ::string>(input)).stem();
                             task.input += ShaderLanguage(m_shader);
                             task.source = std::forward<std::string>(source);
                             task.state = State::Untouched;
