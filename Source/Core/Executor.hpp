@@ -1,7 +1,7 @@
 #pragma once
-#include <string>
+#include "Shader.hpp"
 
 namespace Selka::Executor
 {
-    auto Process(std::string&) -> void;
+    auto Process(std::string&, Shader) -> void;
 }

@@ -4,7 +4,7 @@
 
 namespace Selka::Executor
 {
-    void Process(std::string& content)
+    auto Process(std::string& content, Shader shader) -> void
     {
         const nlohmann::json data = nlohmann::json::parse(content);
         if(not data.is_object())
@@ -19,7 +19,8 @@ namespace Selka::Executor
             if(kind.is_string())
             {
                 if(kind.get<std::string>() == "TranslationUnitDecl")
-                    data.get<Spell::TranslationUnitDecl>().Shade(content);
+                    data.get<Spell::TranslationUnitDecl>().Shade(content,
+                    shader);
                 else
                 {
                     std::cerr << "The following JSON content ain't a valid "
