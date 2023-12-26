@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+#include "../Spell/Location.hpp"
 
 namespace Selka
 {
@@ -14,6 +14,8 @@ namespace Selka
     class [[nodiscard]] ShaderKind final
     {
     public:
+        Spell::Location loc;
+
         std::uint64_t x, y, z;
 
         Kind kind;
