@@ -35,6 +35,12 @@ namespace Selka::Spell
                             + "' must be followed by a function";
                             std::abort();
                         }
+                        else
+                        {
+                            std::cerr << "error: The '" + ShadeKind(sk.kind) +
+                            "' keyword must be followed by a function";
+                            std::abort();
+                        }
                     break;
                     case None:
                         if constexpr(Meta::Same<T, StaticAssertDecl>)
