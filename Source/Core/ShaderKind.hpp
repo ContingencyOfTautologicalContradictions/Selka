@@ -20,4 +20,6 @@ namespace Selka
 
         Kind kind;
     };
+
+    [[nodiscard]] auto ShadeKind(Kind) -> std::string;
 }
