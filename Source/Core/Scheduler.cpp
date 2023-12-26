@@ -36,7 +36,7 @@ namespace Selka
             if(task.state == State::Untouched)
             {
                 task.state = State::Executing;
-                Executor::Process(task.source);
+                Executor::Process(task.source, scheduler.ShaderLang());
                 task.state = State::Finished;
             }
             Execute(scheduler, task);
