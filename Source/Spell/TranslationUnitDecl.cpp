@@ -9,7 +9,9 @@ namespace Selka::Spell
         for(const Variants& variant : inner.Value())
             std::visit([&](auto&& element)
             {
-                element.Shade(source, shader, Vertex);
+                using T = std::decay_t<decltype(element)>;
+                if constexpr(Meta::Same<T, StaticAssertDecl>)
+                    element.Shade(source, Vertex);
             }, variant);
     }
 

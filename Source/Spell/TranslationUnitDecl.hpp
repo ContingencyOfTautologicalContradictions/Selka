@@ -1,4 +1,5 @@
 #pragma once
+#include "../Core/Shader.hpp"
 #include "StaticAssertDecl.hpp"
 
 namespace Selka::Spell
