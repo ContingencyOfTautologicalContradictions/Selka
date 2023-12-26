@@ -5,6 +5,7 @@ namespace Selka
 {
     enum class Kind : std::uint8_t
     {
+        None,
         Vertex,
         Fragment,
         Compute
