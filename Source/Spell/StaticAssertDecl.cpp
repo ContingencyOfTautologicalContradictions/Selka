@@ -2,68 +2,75 @@
 
 namespace Selka::Spell
 {
-    auto Assign(bool& stop, ShaderKind& shader, const std::string& qualType,
-    const Json::Field<std::string>& valueCategory, const Json::Field<std::
-    string>& value) -> void
+    auto Assign(bool& stop, const Json::Field<Location>& loc, ShaderKind&
+    shader, const Type& type, const Json::Field<std::string>& valueCategory,
+    const Json::Field<std::string>& value) -> void
     {
-        if(qualType == "NULL TYPE")
-            if(valueCategory.Present())
-                if(valueCategory.Value() == "lvalue")
-                    if(value.Present())
-                    {
-                        if(value.Value() == "\"selka.shading.vertex\"")
+        if(type.qualType.Present())
+            if(type.qualType.Value() == "NULL TYPE")
+                if(valueCategory.Present())
+                    if(valueCategory.Value() == "lvalue")
+                        if(value.Present())
                         {
-                            stop = true;
-                            shader.kind = Kind::Vertex;
-                        }
-                        else if(value.Value() == "\"selka.shading.fragment\"")
-                        {
-                            stop = true;
-                            shader.kind = Kind::Fragment;
-                        }
-                        else if(value.Value().starts_with(
-                        "\"selka.shading.compute ") and value.Value().ends_with
-                        ('"'))
-                        {
-                            stop = true;
-                            shader.kind = Kind::Compute;
-                            std::string dim;
-                            std::uint8_t mode = 0u;
-                            for(std::size_t x = 23z; x < value.Value().size(); ++x)
+                            if(value.Value() == "\"selka.shading.vertex\"" and
+                            loc.Present())
                             {
-                                char c = value.Value()[x];
-                                switch(mode)
+                                stop = true;
+                                shader.kind = Kind::Vertex;
+                                shader.loc = loc.Value();
+                            }
+                            else if(value.Value() ==
+                            "\"selka.shading.fragment\"" and loc.Present())
+                            {
+                                stop = true;
+                                shader.kind = Kind::Fragment;
+                                shader.loc = loc.Value();
+                            }
+                            else if(value.Value().starts_with(
+                            "\"selka.shading.compute ") and value.Value().
+                            ends_with('"') and loc.Present())
+                            {
+                                stop = true;
+                                shader.kind = Kind::Compute;
+                                shader.loc = loc.Value();
+                                std::string dim;
+                                std::uint8_t mode = 0u;
+                                for(std::size_t x = 23z; x < value.Value().size
+                                (); ++x)
                                 {
-                                    case 0u:
-                                        if(c == ':')
-                                        {
-                                            mode = 1u;
-                                            shader.x = std::stoull(dim);
-                                            dim.clear();
-                                        }
-                                        else
-                                            dim.append(1z, c);
-                                    break;
-                                    case 1u:
-                                        if(c == ':')
-                                        {
-                                            mode = 2u;
-                                            shader.y = std::stoull(dim);
-                                            dim.clear();
-                                        }
-                                        else
-                                            dim.append(1z, c);
-                                    break;
-                                    case 2u:
-                                        if(c == '"')
-                                            shader.z = std::stoull(dim);
-                                        else
-                                            dim.append(1z, c);
-                                    break;
+                                    char c = value.Value()[x];
+                                    switch(mode)
+                                    {
+                                        case 0u:
+                                            if(c == ':')
+                                            {
+                                                mode = 1u;
+                                                shader.x = std::stoull(dim);
+                                                dim.clear();
+                                            }
+                                            else
+                                                dim.append(1z, c);
+                                        break;
+                                        case 1u:
+                                            if(c == ':')
+                                            {
+                                                mode = 2u;
+                                                shader.y = std::stoull(dim);
+                                                dim.clear();
+                                            }
+                                            else
+                                                dim.append(1z, c);
+                                        break;
+                                        case 2u:
+                                            if(c == '"')
+                                                shader.z = std::stoull(dim);
+                                            else
+                                                dim.append(1z, c);
+                                        break;
+                                    }
                                 }
                             }
                         }
-                    }
     }
 
     auto StaticAssertDecl::Shade(std::string& source, ShaderKind& sk) const ->
@@ -91,17 +98,11 @@ namespace Selka::Spell
                                                     StringLiteral>)
                                                         if(selement.type.
                                                         Present())
-                                                            if(selement.type.
-                                                            Value().qualType.
-                                                            Present())
-                                                                Assign(stop, sk
-                                                                , selement.type
-                                                                .Value().
-                                                                qualType.Value(
-                                                                ), selement.
-                                                                valueCategory,
-                                                                selement.value)
-                                                                ;
+                                                            Assign(stop, loc,
+                                                            sk, selement.type.
+                                                            Value(), selement.
+                                                            valueCategory,
+                                                            selement.value);
                                                 }, inner.Value()[1z]);
             }, inner.Value()[0z]);
         if(not stop)
@@ -110,6 +111,7 @@ namespace Selka::Spell
 
     void from_json(const nlohmann::json& data, StaticAssertDecl& sad)
     {
+        sad.loc = Json::Field<Location>(data, "loc");
         if(data.contains("inner"))
         {
             sad.inner.Set();

@@ -10,6 +10,8 @@ namespace Selka::Spell
     public:
         auto Shade(std::string&, ShaderKind&) const -> void;
 
+        Json::Field<Location> loc;
+
         using Variants = std::variant<CXXBoolLiteralExpr, StringLiteral>;
 
         Json::Field<std::vector<Variants>> inner;
