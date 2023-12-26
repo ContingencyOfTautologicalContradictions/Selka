@@ -5,13 +5,13 @@ namespace Selka::Spell
     auto TranslationUnitDecl::Shade(std::string& source, Shader shader) const
     -> void
     {
-        bool vertex = false;
+        ShaderKind sk;
         for(const Variants& variant : inner.Value())
             std::visit([&](auto&& element)
             {
                 using T = std::decay_t<decltype(element)>;
                 if constexpr(Meta::Same<T, StaticAssertDecl>)
-                    element.Shade(source, vertex);
+                    element.Shade(source, sk);
             }, variant);
     }
 
