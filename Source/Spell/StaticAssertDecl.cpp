@@ -11,14 +11,18 @@ namespace Selka::Spell
             for(const nlohmann::json& element : inner)
                 if(element.contains("kind"))
                 {
-                    const std::string kind = element.at("kind").get<std::string
-                    >();
-                    StaticAssertDecl::Variants variant;
-                    if(kind == "CXXBoolLiteralExpr")
-                        variant = element.get<CXXBoolLiteralExpr>();
-                    else if(kind == "StringLiteral")
-                        variant = element.get<StringLiteral>();
-                    sad.inner.Value().push_back(variant);
+                    const nlohmann::json& kind = element.at("kind");
+                    if(kind.is_string())
+                    {
+                        const std::string skind = element.at("kind").get<std::
+                        string>();
+                        StaticAssertDecl::Variants variant;
+                        if(skind == "CXXBoolLiteralExpr")
+                            variant = element.get<CXXBoolLiteralExpr>();
+                        else if(skind == "StringLiteral")
+                            variant = element.get<StringLiteral>();
+                        sad.inner.Value().push_back(variant);
+                    }
                 }
         }
     }
