@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv)
 {
-    if(argc < 4 and argc > 5)
+    if(argc < 4 or argc > 5)
     {
         std::cerr << "Mismatch of arguments, please consult "
         "https://github.com/ContingencyOfTautologicalContradictions/Selka/blob"
