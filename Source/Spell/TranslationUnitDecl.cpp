@@ -2,13 +2,14 @@
 
 namespace Selka::Spell
 {
-    auto TranslationUnitDecl::Shade(std::string& source) const -> void
+    auto TranslationUnitDecl::Shade(std::string& source, Shader shader) const
+    -> void
     {
         bool Vertex = false;
         for(const Variants& variant : inner.Value())
             std::visit([&](auto&& element)
             {
-                element.Shade(source, Vertex);
+                element.Shade(source, shader, Vertex);
             }, variant);
     }
 

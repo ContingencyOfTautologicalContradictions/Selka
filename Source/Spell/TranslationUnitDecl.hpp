@@ -6,7 +6,7 @@ namespace Selka::Spell
     class [[nodiscard]] TranslationUnitDecl final
     {
     public:
-        auto Shade(std::string&) const -> void;
+        auto Shade(std::string&, Shader) const -> void;
 
         using Variants = std::variant<StaticAssertDecl>;
 
