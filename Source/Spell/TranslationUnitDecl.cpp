@@ -4,10 +4,11 @@ namespace Selka::Spell
 {
     auto TranslationUnitDecl::Shade(std::string& source) const -> void
     {
+        bool Vertex = false;
         for(const Variants& variant : inner.Value())
             std::visit([&](auto&& element)
             {
-                element.Shade(source);
+                element.Shade(source, Vertex);
             }, variant);
     }
 
